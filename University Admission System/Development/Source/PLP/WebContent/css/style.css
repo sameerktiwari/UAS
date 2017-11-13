@@ -1,0 +1,109 @@
+/*
+* multi-line comment
+*/
+h1 {
+	color: navy;
+}
+
+h2 {
+	color: white;
+	
+}
+#appId{
+	color: navy;
+	background-color: white;
+}
+body {
+	text-align: center;
+	float: center;
+	background-image: url("../images/bckgrnd.jpg");
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size:1920px  1080px ;
+}
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	color: blue;
+	text-decoration: underline;
+}
+
+/* you can structure your code's white space so that it is as readable for when you come back in the future or for other people to read and edit quickly */
+
+/* but try and be as concise as possible */
+#nav {
+	width: 80%;
+	display: inline-block;
+	position: relative;
+	margin: 30px;
+}
+
+#nav ul {
+	
+}
+
+#nav ul li {
+	display: inline-block;
+	padding: 50px;
+}
+
+#nav ul li a {
+	padding: 20px;
+	background: orange;
+	color: white;
+}
+
+#nav ul li a:hover {
+	background-color: #ffb424;
+	box-shadow: 0px 1px 1px #666;
+}
+
+#nav ul li a:active {
+	background-color: #ff8f00;
+}
+
+#home {
+	display: inline-block;
+	padding: 50px;
+	float: left;
+}
+
+#nav a {
+	padding: 20px;
+	background: navy;
+	color: white;
+}
+
+table{
+	margin-top: 30px;
+	margin-bottom: 100px;
+	text-align: center;
+	align: center;
+	
+}
+
+#footer {
+	margin: 10px;
+}
+
+#footer a {
+	display: inline-block;
+	padding: 10px;
+	background: navy;
+	color: white;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+table td {
+    background-color: white;
+    color: black;
+}
+
+

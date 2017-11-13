@@ -1,0 +1,23 @@
+drop table Programs_Offered;
+create table Programs_Offered
+(ProgramName varchar2(40),description varchar2(1000),applicant_eligibility varchar2(40),duration number,degree_certificate_offered varchar2(40));
+
+insert into Programs_offered
+values('Accounting','Business account handling attributes and management techniques for faster processing of liablity','MBA',4,'Professional Degree');
+insert into Programs_offered
+values('Entrepreneurship','Be the shark of Business world .Learn from masters of business. Have a monthly meeting with legends','ANY DEGREE',3,'Associate Degree');
+insert into Programs_offered
+values('Macroeconomics','Learn how the world handle the money. How it gets manipulated by the RBI and banks','MBA',5,'Professional Degree');
+insert into Programs_offered
+values('Hospitality','Learn the kindness and well behaving softskills and techniques to do be impactable','MBA',5,'Associate Degree');
+insert into Programs_offered
+values('Tourism','Travel through the world physically and mentally and cherish the civilization of countries and places','ANY DEGREE',5,'Professional Degree');
+insert into Programs_offered
+values('Business Administration','Learn how to be a servant of givernment and help the common civil people','ANY DEGREE',5,'Associate Degree');
+insert into Programs_offered
+values('Marketing','We will teach you how to sell , may be after the course you may be able to sell the university','MBA',5,'Professional Degree');
+
+insert into Programs_offered
+values('Liberal studies','Be liberal to society and make people liberal the way you anticipate','ANY DEGREE',5,'Associate Degree');
+insert into Programs_offered
+values('Psychology','take a peep in to the human behaviour and shape the people into their desired path','ANY DEGREE',5,'Professional Degree');

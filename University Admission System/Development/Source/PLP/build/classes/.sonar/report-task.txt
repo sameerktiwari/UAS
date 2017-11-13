@@ -1,0 +1,5 @@
+projectKey=UAS
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/UAS
+ceTaskId=AV-1O4f9ncZ9JXhqh-hL
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AV-1O4f9ncZ9JXhqh-hL
