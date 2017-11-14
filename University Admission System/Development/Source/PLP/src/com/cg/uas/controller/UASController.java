@@ -320,17 +320,13 @@ public class UASController {
 					model.addAttribute("applicant", app);
 					Application application = new Application();
 					model.addAttribute("Application", application);
-					return "viewApplication";
+					return VIEW_APPLICATION;
 				} else if (("Rejected").equals(status)) {
 					app = service.modify(app, status);
 					model.addAttribute("msg", "Application " + appId
 							+ " rejected");
 					model.addAttribute("applicant", app);
-					return "viewApplication";
-				} else {
-					model.addAttribute("msg", "Not Applicable");
-					model.addAttribute("applicant", app);
-					return "viewApplication";
+					return VIEW_APPLICATION;
 				}
 			} else if (("Accepted").equals(app.getStatus())) {
 				if (("Confirmed").equals(status)) {
@@ -344,11 +340,7 @@ public class UASController {
 						model.addAttribute("applicant", app);
 						model.addAttribute("msg", "Applicant Confirmed");
 						model.addAttribute("applicant", app);
-						return "viewApplication";
-					} else {
-						model.addAttribute("msg", "Pending Interview Results");
-						model.addAttribute("applicant", app);
-						return "viewApplication";
+						return VIEW_APPLICATION;
 					}
 				} else if (("Rejected").equals(status)) {
 					if (app.getDateOfInterview().before(
@@ -357,26 +349,20 @@ public class UASController {
 						model.addAttribute("msg", "Application " + appId
 								+ " rejected");
 						model.addAttribute("applicant", app);
-						return "viewApplication";
-					} else {
-						model.addAttribute("msg", "Pending Interview Results");
-						model.addAttribute("applicant", app);
-						return "viewApplication";
+						return VIEW_APPLICATION;
 					}
-				} else {
-					model.addAttribute("msg", "Not Applicable");
-					model.addAttribute("applicant", app);
-					return "viewApplication";
 				}
-			} else {
-				model.addAttribute("msg", "Not Applicable");
+				model.addAttribute("msg", "Pending Interview Results");
 				model.addAttribute("applicant", app);
-				return "viewApplication";
+				return VIEW_APPLICATION;
 			}
+			model.addAttribute("msg", "Not Applicable");
+			model.addAttribute("applicant", app);
+			return VIEW_APPLICATION;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+			return ERROR_PAGE;
 		}
 	}
 
