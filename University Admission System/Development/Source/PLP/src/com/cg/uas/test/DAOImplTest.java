@@ -16,7 +16,7 @@ import com.cg.uas.entities.Users;
 import com.cg.uas.exception.UniversityException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("testDao.xml")
+@ContextConfiguration("classpath:/jpaContext.xml")
 public class DAOImplTest {
 	@Autowired
 	private UASDAO dao;

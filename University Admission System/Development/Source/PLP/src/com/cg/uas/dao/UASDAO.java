@@ -18,6 +18,7 @@ public interface UASDAO {
 
 	/**
 	 * @param user
+	 *            - Contains user information to be validated
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -31,6 +32,8 @@ public interface UASDAO {
 
 	/**
 	 * @param pname
+	 *            - Contains the program name of which details has to be fetched
+	 *            from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -39,6 +42,8 @@ public interface UASDAO {
 
 	/**
 	 * @param appid
+	 *            - Contains the application id for which status has to be
+	 *            fetched from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -46,6 +51,7 @@ public interface UASDAO {
 
 	/**
 	 * @param app
+	 *            - Contains the applicant information which is to be submitted
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -53,6 +59,8 @@ public interface UASDAO {
 
 	/**
 	 * @param programId
+	 *            - Contains the program id for which applications has to be
+	 *            fetched from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -61,7 +69,11 @@ public interface UASDAO {
 
 	/**
 	 * @param application
+	 *            - Contains the applicant information of which status has to be
+	 *            updated
 	 * @param status
+	 *            - Contains the status to which applicant status is to be
+	 *            updated to
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -70,7 +82,11 @@ public interface UASDAO {
 
 	/**
 	 * @param application
+	 *            - Contains the applicant information of which date of
+	 *            interview has to be set
 	 * @param dateOfInterview
+	 *            - Contains date of interview to which applicant date of
+	 *            interview is to be updated to
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -79,6 +95,7 @@ public interface UASDAO {
 
 	/**
 	 * @param ppt
+	 *            - Contains participant information which is to be added
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -87,6 +104,8 @@ public interface UASDAO {
 
 	/**
 	 * @param programId
+	 *            - Contains scheduled program id of which details has to be
+	 *            fetched from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -95,6 +114,8 @@ public interface UASDAO {
 
 	/**
 	 * @param scheduledProgrammeId
+	 *            - Contains scheduled program id of a program which is to be
+	 *            deleted
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -103,6 +124,8 @@ public interface UASDAO {
 
 	/**
 	 * @param programsScheduled
+	 *            - Contains scheduled program id of a program which is to be
+	 *            modified
 	 * @return
 	 * @throws UniversityException
 	 */
