@@ -1,5 +1,7 @@
 package com.cg.uas.controller;
 
+import static com.cg.uas.utility.UASConstants.*;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -43,7 +45,7 @@ public class UASController {
 		Users users = new Users();
 		model.addAttribute("users", users);
 		users.setRole(role);
-		return "login";
+		return LOGIN_PAGE;
 	}
 
 	/**
@@ -56,13 +58,13 @@ public class UASController {
 	public String validate(Model model, @ModelAttribute("users") Users users,
 			BindingResult result) {
 		if (result.hasErrors()) {
-			return "login";
+			return LOGIN_PAGE;
 		}
 		if (!service.validate(users)) {
 			return users.getRole();
 		}
-		model.addAttribute("msg", "Invalid Username or Password");
-		return "error";
+		model.addAttribute(ERROR_MESSAGE, LOGIN_ERROR_MESSAGE);
+		return ERROR_PAGE;
 	}
 
 	/**
@@ -71,7 +73,7 @@ public class UASController {
 	 */
 	@RequestMapping("/applicant")
 	public String applicant(Model model) {
-		return "applicant";
+		return APPLICANT_HOME;
 	}
 
 	/**
@@ -87,11 +89,11 @@ public class UASController {
 			model.addAttribute("programList", programsScheduled);
 			ProgramsScheduled programs = new ProgramsScheduled();
 			model.addAttribute("ProgramsScheduled", programs);
-			return "viewProgram";
+			return VIEW_ALL_PROGRAMS;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 
 		}
 	}
@@ -109,11 +111,11 @@ public class UASController {
 			ProgramsOffered pos = service.getProgramsOffered(pName);
 			model.addAttribute("prog", pos);
 			model.addAttribute("pId", pId);
-			return "programDetail";
+			return VIEW_PROGRAM_DETAILS;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 		}
 	}
 
@@ -126,10 +128,9 @@ public class UASController {
 	public String apply(@RequestParam("pId") String pId, Model model) {
 		Application app = new Application();
 		model.addAttribute("pId", pId);
-		model.addAttribute("domainlist", new String[] { "Select", "Btech",
-				"Mtech", "MBA", "Any Other" });
+		model.addAttribute("domainlist", DOMAINS);
 		model.addAttribute("Application", app);
-		return "application";
+		return APPLICATION;
 	}
 
 	/**
@@ -143,16 +144,16 @@ public class UASController {
 			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("Application", app);
-			return "application";
+			return APPLICATION;
 		}
 		try {
 			Application ap = service.save(app);
 			model.addAttribute("applicant", ap);
-			return "success";
+			return SUCCESS_PAGE;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 		}
 	}
 
@@ -161,7 +162,7 @@ public class UASController {
 	 */
 	@RequestMapping("/viewstatus")
 	public String viewstatus() {
-		return "viewStatus";
+		return VIEW_STATUS;
 	}
 
 	/**
@@ -174,12 +175,12 @@ public class UASController {
 		try {
 			Application app = service.getStatus(Integer.parseInt(appId));
 			model.addAttribute("applicant", app);
-			return "viewStatus";
+			return VIEW_STATUS;
 
 		} catch (UniversityException | NumberFormatException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 		}
 	}
 
@@ -195,11 +196,11 @@ public class UASController {
 			model.addAttribute("programList", programsScheduled);
 			ProgramsScheduled programs = new ProgramsScheduled();
 			model.addAttribute("ProgramsScheduled", programs);
-			return "viewProgramForMAC";
+			return VIEW_PROGRAMS_FOR_MAC;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 		}
 	}
 
@@ -223,11 +224,11 @@ public class UASController {
 				throw new UniversityException("No applications submitted");
 			Application app = new Application();
 			model.addAttribute("Application", app);
-			return "viewApplications";
+			return VIEW_APPLICATIONS_FOR_A_PROGRAM;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 		}
 	}
 
@@ -241,7 +242,7 @@ public class UASController {
 	public String viewapplication(Model model,
 			@ModelAttribute("Application") Application app, BindingResult result) {
 		model.addAttribute("applicant", app);
-		return "viewApplication";
+		return VIEW_APPLICATION;
 	}
 
 	/**
@@ -335,18 +336,18 @@ public class UASController {
 			if (result.hasErrors()) {
 				model.addAttribute("applicant", app);
 				model.addAttribute("showDOI", "y");
-				return "viewApplication";
+				return VIEW_APPLICATION;
 			}
 			app = service.modify(app, "Accepted");
 			model.addAttribute("applicant", app);
 			model.addAttribute("msg", "Application " + app.getApplicationId()
 					+ " accepted and Interview Scheduled");
 			model.addAttribute("applicant", app);
-			return "viewApplication";
+			return VIEW_APPLICATION;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 
 		}
 	}
@@ -363,11 +364,11 @@ public class UASController {
 			model.addAttribute("programList", programsScheduled);
 			ProgramsScheduled programs = new ProgramsScheduled();
 			model.addAttribute("ProgramsScheduled", programs);
-			return "viewProgramForAdmin";
+			return VIEW_PROGRAMS_FOR_ADMIN;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 
 		}
 	}
@@ -384,11 +385,11 @@ public class UASController {
 			model.addAttribute("prog", programsScheduled);
 			ProgramsScheduled program = new ProgramsScheduled();
 			model.addAttribute("programsScheduled", program);
-			return "updateProgram";
+			return UPDATE_PROGRAM;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 
 		}
 	}
@@ -407,11 +408,11 @@ public class UASController {
 			model.addAttribute("message",
 					"Program with Id " + programs.getScheduledProgrammeId()
 							+ " successfully modified");
-			return "admin";
+			return ADMIN_HOME;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 
 		}
 
@@ -430,11 +431,11 @@ public class UASController {
 				model.addAttribute("message", "Program with Id " + pId
 						+ " successfully deleted");
 			}
-			return "admin";
+			return ADMIN_HOME;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			return ERROR_PAGE;
 
 		}
 	}

@@ -1,5 +1,7 @@
 package com.cg.uas.dao;
 
+import static com.cg.uas.utility.UASDAOConstants.*;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class DAOImpl implements IDAO {
 		query.setParameter("ppwd", user.getPassword());
 		query.setParameter("prole", user.getRole());
 		List<Users> users = query.getResultList();
-		logger.info("Logged in successfully");
+		logger.info(LOGGED_IN);
 		return users.isEmpty();
 	}
 
@@ -56,11 +58,11 @@ public class DAOImpl implements IDAO {
 		try {
 			TypedQuery<ProgramsScheduled> query = entityManager.createQuery(
 					QueryMapper.programs, ProgramsScheduled.class);
-			logger.info("Retrieved Programs Scheduled");
+			logger.info(RETREIEVE_PROGRAMS_SCHEDULED);
 			return query.getResultList();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new UniversityException("No Programmes available");
+			logger.error(e);
+			throw new UniversityException(NO_PROGRAMS_AVAILABLE);
 		}
 	}
 
@@ -81,9 +83,9 @@ public class DAOImpl implements IDAO {
 			logger.info("Retrieved Programs Offered");
 			return programs;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e);
 			throw new UniversityException(
-					"Incorrect Program Name or Programme Not Available");
+					INCORRECT_PROGRAM_NAME);
 		}
 	}
 
@@ -99,10 +101,10 @@ public class DAOImpl implements IDAO {
 					QueryMapper.application, Application.class);
 			query.setParameter("pappid", appid);
 			Application app = query.getSingleResult();
-			logger.info("Retrieved application status");
+			logger.info(GET_APPLICATION_STATUS);
 			return app;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e);
 			throw new UniversityException(e.getMessage());
 
 		}
@@ -119,11 +121,11 @@ public class DAOImpl implements IDAO {
 		try {
 			entityManager.persist(app);
 			entityManager.flush(); // required to reflect changes on database
-			logger.info("Application submitted");
+			logger.info(APPLICATION_SUBMITTED);
 			return app;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new UniversityException("Problem in persisting");
+			logger.error(e);
+			throw new UniversityException(APPLICATION_NOT_SUBMITTED);
 		}
 	}
 
@@ -141,11 +143,11 @@ public class DAOImpl implements IDAO {
 					QueryMapper.applications, Application.class);
 			query.setParameter("pappid", programId);
 			List<Application> applications = query.getResultList();
-			logger.info("Retrieved applications for a given programId");
+			logger.info(RETREIVE_APPLICATIONS_FOR_A_PROGRAMID);
 			return applications;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			throw new UniversityException("No Applicant with thte given id");
+			throw new UniversityException(NO_APPLICANT_WITH_GIVEN_ID);
 		}
 	}
 
@@ -162,11 +164,11 @@ public class DAOImpl implements IDAO {
 			application.setStatus(status);
 			application = entityManager.merge(application);
 			entityManager.flush(); // required to reflect changes on database
-			logger.info("Status updated");
+			logger.info(STATUS_UPDATED);
 			return application;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new UniversityException("Problem in Updating status");
+			logger.error(e);
+			throw new UniversityException(STATUS_NOT_UPDATED);
 		}
 	}
 
@@ -183,12 +185,12 @@ public class DAOImpl implements IDAO {
 			application.setDateOfInterview(dateOfInterview);
 			application = entityManager.merge(application);
 			entityManager.flush(); // required to reflect changes on database
-			logger.info("Date Of Interview updated");
+			logger.info(INTERVIEW_DATE_SCHEDULED);
 			return application;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e);
 			throw new UniversityException(
-					"Problem in Updating Date of Interview");
+					INTERVIEW_DATE_NOT_SCHEDULED);
 		}
 	}
 
@@ -204,16 +206,18 @@ public class DAOImpl implements IDAO {
 		try {
 			entityManager.persist(ppt);
 			entityManager.flush(); // required to reflect changes on database
-			logger.info("Participant Added");
+			logger.info(PARTICIPANT_ADDED);
 			return ppt;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new UniversityException("Problem in persisting participant");
+			logger.error(e);
+			throw new UniversityException(PARTICIPANT_NOT_ADDED);
 		}
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cg.uas.dao.IDAO#getProgram(java.lang.String)
 	 */
 	@Override
@@ -225,15 +229,17 @@ public class DAOImpl implements IDAO {
 					QueryMapper.programsScheduled, ProgramsScheduled.class);
 			query.setParameter("ppid", programId);
 			ProgramsScheduled prgrms = query.getSingleResult();
-			logger.info("Retrieved applications for a given programId");
+			logger.info(RETREIVE_APPLICATIONS_FOR_A_PROGRAMID);
 			return prgrms;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new UniversityException("Invalid ProgramId");
+			logger.error(e);
+			throw new UniversityException(INVALID_PROGRAMID);
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cg.uas.dao.IDAO#deleteProgram(java.lang.String)
 	 */
 	@Override
@@ -244,15 +250,17 @@ public class DAOImpl implements IDAO {
 			Query query = entityManager.createQuery(QueryMapper.deletePrograms);
 			int deletedCount = query.setParameter("p", scheduledProgrammeId)
 					.executeUpdate();
-			logger.info("Program Deleted");
+			logger.info(PROGRAM_DELETED);
 			return deletedCount;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new UniversityException("Program does not exist");
+			logger.error(e);
+			throw new UniversityException(PROGRAM_NOT_DELETED);
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cg.uas.dao.IDAO#modify(com.cg.uas.entities.ProgramsScheduled)
 	 */
 	@Override
@@ -262,11 +270,11 @@ public class DAOImpl implements IDAO {
 
 			programsScheduled = entityManager.merge(programsScheduled);
 			entityManager.flush(); // required to reflect changes on database
-			logger.info("Program updated");
+			logger.info(PROGRAM_UPDATED);
 			return programsScheduled;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new UniversityException("Problem in Updating program");
+			logger.error(e);
+			throw new UniversityException(PROGRAM_NOT_UPDATED);
 		}
 	}
 

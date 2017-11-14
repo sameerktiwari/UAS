@@ -10,6 +10,10 @@ import com.cg.uas.entities.ProgramsScheduled;
 import com.cg.uas.entities.Users;
 import com.cg.uas.exception.UniversityException;
 
+/**
+ * @author sametiwa
+ *
+ */
 public interface IDAO {
 
 	/**
