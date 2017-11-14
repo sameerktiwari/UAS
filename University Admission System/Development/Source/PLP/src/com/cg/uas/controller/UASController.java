@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.apache.log4j.Logger;
 
 import com.cg.uas.entities.Application;
 import com.cg.uas.entities.Participant;
@@ -63,7 +63,7 @@ public class UASController {
 		if (!service.validate(users)) {
 			return users.getRole();
 		}
-		model.addAttribute(ERROR_MESSAGE, LOGIN_ERROR_MESSAGE);
+		model.addAttribute(ERROR_MESSAGE_NAME, LOGIN_ERROR_MESSAGE);
 		return ERROR_PAGE;
 	}
 
@@ -92,7 +92,7 @@ public class UASController {
 			return VIEW_ALL_PROGRAMS;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -114,7 +114,7 @@ public class UASController {
 			return VIEW_PROGRAM_DETAILS;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -152,7 +152,7 @@ public class UASController {
 			return SUCCESS_PAGE;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -179,7 +179,7 @@ public class UASController {
 
 		} catch (UniversityException | NumberFormatException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -199,7 +199,7 @@ public class UASController {
 			return VIEW_PROGRAMS_FOR_MAC;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -227,7 +227,7 @@ public class UASController {
 			return VIEW_APPLICATIONS_FOR_A_PROGRAM;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -346,7 +346,7 @@ public class UASController {
 			return VIEW_APPLICATION;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -367,7 +367,7 @@ public class UASController {
 			return VIEW_PROGRAMS_FOR_ADMIN;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -388,7 +388,7 @@ public class UASController {
 			return UPDATE_PROGRAM;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -411,7 +411,7 @@ public class UASController {
 			return ADMIN_HOME;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -434,7 +434,7 @@ public class UASController {
 			return ADMIN_HOME;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
 			return ERROR_PAGE;
 
 		}

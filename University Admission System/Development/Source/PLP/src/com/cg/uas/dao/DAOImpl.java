@@ -84,8 +84,7 @@ public class DAOImpl implements IDAO {
 			return programs;
 		} catch (Exception e) {
 			logger.error(e);
-			throw new UniversityException(
-					INCORRECT_PROGRAM_NAME);
+			throw new UniversityException(INCORRECT_PROGRAM_NAME);
 		}
 	}
 
@@ -189,8 +188,7 @@ public class DAOImpl implements IDAO {
 			return application;
 		} catch (Exception e) {
 			logger.error(e);
-			throw new UniversityException(
-					INTERVIEW_DATE_NOT_SCHEDULED);
+			throw new UniversityException(INTERVIEW_DATE_NOT_SCHEDULED);
 		}
 	}
 
