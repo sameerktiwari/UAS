@@ -13,7 +13,7 @@ public interface UASConstants {
 	String VIEW_PROGRAM_DETAILS = "programDetail";
 	String VIEW_STATUS = "viewStatus";
 	String SUCCESS_PAGE = "success";
-	String[] DOMAINS = { "Select", "Btech", "Mtech", "MBA", "Any Other" };
+	String[] DOMAINS = { "Select", "Btech", "Mtech", "MBA", "10th/12th" };
 	String VIEW_PROGRAMS_FOR_MAC = "viewProgramForMAC";
 	String VIEW_APPLICATIONS_FOR_A_PROGRAM = "viewApplications";
 	String VIEW_APPLICATION = "viewApplication";

@@ -14,7 +14,7 @@ import com.cg.uas.exception.UniversityException;
  * @author sametiwa
  *
  */
-public interface IDAO {
+public interface UASDAO {
 
 	/**
 	 * @param user

@@ -24,24 +24,26 @@ import com.cg.uas.entities.ProgramsOffered;
 import com.cg.uas.entities.ProgramsScheduled;
 import com.cg.uas.entities.Users;
 import com.cg.uas.exception.UniversityException;
-import com.cg.uas.service.IService;
+import com.cg.uas.service.UASService;
 
 @Controller
 public class UASController {
 
 	private static Logger logger = Logger
-			.getLogger(com.cg.uas.dao.DAOImpl.class);
+			.getLogger(com.cg.uas.dao.UASDAOImpl.class);
 
 	@Autowired
-	private IService service;
+	private UASService service;
 
 	/**
+	 * Gets the role of the user
+	 * 
 	 * @param role
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/login")
-	public String login(@RequestParam("role") String role, Model model) {
+	public String getRole(@RequestParam("role") String role, Model model) {
 		Users users = new Users();
 		model.addAttribute("users", users);
 		users.setRole(role);
@@ -49,6 +51,8 @@ public class UASController {
 	}
 
 	/**
+	 * Validates the username and password
+	 * 
 	 * @param model
 	 * @param users
 	 * @param result
@@ -68,20 +72,24 @@ public class UASController {
 	}
 
 	/**
+	 * Show the Applicant Home Page
+	 * 
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/applicant")
-	public String applicant(Model model) {
+	public String showApplicantHome(Model model) {
 		return APPLICANT_HOME;
 	}
 
 	/**
+	 * Views all the programs
+	 * 
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/viewprgrms")
-	public String viewprgrms(Model model) {
+	public String viewPrograms(Model model) {
 
 		try {
 			List<ProgramsScheduled> programsScheduled = service
@@ -99,13 +107,15 @@ public class UASController {
 	}
 
 	/**
+	 * View Program details
+	 * 
 	 * @param pName
 	 * @param pId
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/programDetails", method = RequestMethod.GET)
-	public String programDetails(@RequestParam("pName") String pName,
+	public String viewProgramDetails(@RequestParam("pName") String pName,
 			@RequestParam("pId") String pId, Model model) {
 		try {
 			ProgramsOffered pos = service.getProgramsOffered(pName);
@@ -120,6 +130,8 @@ public class UASController {
 	}
 
 	/**
+	 * Applying for a program
+	 * 
 	 * @param pId
 	 * @param model
 	 * @return
@@ -134,6 +146,8 @@ public class UASController {
 	}
 
 	/**
+	 * Adds an applicant for a program
+	 * 
 	 * @param app
 	 * @param result
 	 * @param model
@@ -158,14 +172,18 @@ public class UASController {
 	}
 
 	/**
+	 * Shows the status of an application
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/viewstatus")
-	public String viewstatus() {
+	public String showStatus() {
 		return VIEW_STATUS;
 	}
 
 	/**
+	 * Gets the status of the application
+	 * 
 	 * @param appId
 	 * @param model
 	 * @return
@@ -185,11 +203,13 @@ public class UASController {
 	}
 
 	/**
+	 * Show programs for MAC
+	 * 
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/viewapps")
-	public String viewapps(Model model) {
+	public String showPrograms(Model model) {
 		try {
 			List<ProgramsScheduled> programsScheduled = service
 					.viewProgrammes();
@@ -205,13 +225,15 @@ public class UASController {
 	}
 
 	/**
+	 * Shows applications for a Program Scheduled
+	 * 
 	 * @param model
 	 * @param ProgramsScheduled
 	 * @param result
 	 * @return
 	 */
 	@RequestMapping("/viewApplications")
-	public String viewapplications(
+	public String showApplications(
 			Model model,
 			@ModelAttribute("ProgramsScheduled") ProgramsScheduled ProgramsScheduled,
 			BindingResult result) {
@@ -233,19 +255,23 @@ public class UASController {
 	}
 
 	/**
+	 * Shows an application
+	 * 
 	 * @param model
 	 * @param app
 	 * @param result
 	 * @return
 	 */
 	@RequestMapping("/viewApplication")
-	public String viewapplication(Model model,
+	public String showApplication(Model model,
 			@ModelAttribute("Application") Application app, BindingResult result) {
 		model.addAttribute("applicant", app);
 		return VIEW_APPLICATION;
 	}
 
 	/**
+	 * Updates the status of an applicant
+	 * 
 	 * @param appId
 	 * @param status
 	 * @param model
@@ -323,6 +349,8 @@ public class UASController {
 	}
 
 	/**
+	 * Sets the interview date of an applicant
+	 * 
 	 * @param model
 	 * @param app
 	 * @param result
@@ -353,11 +381,13 @@ public class UASController {
 	}
 
 	/**
+	 * Shows programs for Admin
+	 * 
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/viewAdminPrgrms")
-	public String viewAdminPrgrms(Model model) {
+	public String showAdminPrograms(Model model) {
 		try {
 			List<ProgramsScheduled> programsScheduled = service
 					.viewProgrammes();
@@ -374,12 +404,14 @@ public class UASController {
 	}
 
 	/**
+	 * Loads the update program schedule page
+	 * 
 	 * @param pId
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/updatePrgrm")
-	public String updatePrgrm(@RequestParam("pId") String pId, Model model) {
+	public String loadUpdateProgram(@RequestParam("pId") String pId, Model model) {
 		try {
 			ProgramsScheduled programsScheduled = service.getProgram(pId);
 			model.addAttribute("prog", programsScheduled);
@@ -395,6 +427,8 @@ public class UASController {
 	}
 
 	/**
+	 * Updates the program schedule
+	 * 
 	 * @param programsScheduled
 	 * @param model
 	 * @return
@@ -419,12 +453,14 @@ public class UASController {
 	}
 
 	/**
+	 * Delete a program schedule
+	 * 
 	 * @param pId
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/deletePrgrm")
-	public String deletePrgrm(@RequestParam("pId") String pId, Model model) {
+	public String deleteProgram(@RequestParam("pId") String pId, Model model) {
 		try {
 			int status = service.deleteProgram(pId);
 			if (status == 1) {

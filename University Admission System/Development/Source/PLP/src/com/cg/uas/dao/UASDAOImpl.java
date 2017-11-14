@@ -24,10 +24,10 @@ import com.cg.uas.utility.QueryMapper;
 
 @Repository
 @Transactional
-public class DAOImpl implements IDAO {
+public class UASDAOImpl implements UASDAO {
 
 	private static Logger logger = Logger
-			.getLogger(com.cg.uas.dao.DAOImpl.class);
+			.getLogger(com.cg.uas.dao.UASDAOImpl.class);
 	@PersistenceContext
 	EntityManager entityManager;
 
