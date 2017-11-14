@@ -10,7 +10,7 @@ import com.cg.uas.entities.ProgramsScheduled;
 import com.cg.uas.entities.Users;
 import com.cg.uas.exception.UniversityException;
 
-public interface IService {
+public interface UASService {
 
 	/**
 	 * @param user

@@ -12,7 +12,6 @@
 <div id="nav">
 			<ul>
 				<li><a href="viewapps.htm">View Applications</a></li>
-				<li><a href="viewstatus.htm">View Status</a></li>
 			</ul>	
 </div>
 

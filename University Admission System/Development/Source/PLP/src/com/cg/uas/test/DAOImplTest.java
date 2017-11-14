@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.cg.uas.dao.IDAO;
+import com.cg.uas.dao.UASDAO;
 import com.cg.uas.entities.Application;
 import com.cg.uas.entities.Users;
 import com.cg.uas.exception.UniversityException;
@@ -19,7 +19,7 @@ import com.cg.uas.exception.UniversityException;
 @ContextConfiguration("testDao.xml")
 public class DAOImplTest {
 	@Autowired
-	private IDAO dao;
+	private UASDAO dao;
 	
 	@Test
 	public void testValidate() {

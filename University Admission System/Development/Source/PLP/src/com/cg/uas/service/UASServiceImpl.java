@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.uas.dao.IDAO;
+import com.cg.uas.dao.UASDAO;
 import com.cg.uas.entities.Application;
 import com.cg.uas.entities.Participant;
 import com.cg.uas.entities.ProgramsOffered;
@@ -15,9 +15,9 @@ import com.cg.uas.entities.Users;
 import com.cg.uas.exception.UniversityException;
 
 @Service
-public class ServiceImpl implements IService {
+public class UASServiceImpl implements UASService {
 	@Autowired
-	IDAO dao;
+	UASDAO dao;
 
 	/*
 	 * (non-Javadoc)
