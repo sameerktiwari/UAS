@@ -1,5 +1,15 @@
 package com.cg.uas.entities;
 
+/************************************************************************************
+ * File:        ProgramsOffered.java
+ * Package:     com.cg.uas.entities
+ * Description: Programs which are on the guideline of University.Contains
+ *              who are eligible the duration of the program and which degree will be
+ *              given on the completion
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -7,12 +17,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * @author GroupNo.5 Programs which are on the guideline of University.Contains
- *         who are eligible the duration of the program and which degree will be
- *         given on the completion
- *
- */
 @Entity
 @Table(name = "Programs_Offered")
 public class ProgramsOffered implements Serializable {

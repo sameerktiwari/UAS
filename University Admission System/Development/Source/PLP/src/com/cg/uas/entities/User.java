@@ -5,9 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/************************************************************************************
+ * File: User.java 
+ * Package: com.cg.uas.entities 
+ * Description: Login credential of
+ * 				users which are applicable 
+ * Version: 1.0 
+ * Modifications: 
+ * Author: Group5 Date:14th-Nov-2017 Change Description:
+ ************************************************************************************/
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
 	@Id
 	@Column(name = "login_id")
 	String loginId;
@@ -40,14 +49,14 @@ public class Users {
 		this.role = role;
 	}
 
-	public Users(String loginId, String password, String role) {
+	public User(String loginId, String password, String role) {
 		super();
 		this.loginId = loginId;
 		this.password = password;
 		this.role = role;
 	}
 
-	public Users() {
+	public User() {
 		super();
 	}
 }

@@ -1,5 +1,13 @@
 package com.cg.uas.entities;
 
+/************************************************************************************
+ * File:        Participant.java
+ * Package:     com.cg.uas.entities
+ * Description: Participant details for an enrolled program 
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -9,10 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * @author GroupNo.5 Encapsulated view of application in the form of participant
- *
- */
 @Entity
 @Table(name = "participant")
 public class Participant implements Serializable {
@@ -35,6 +39,10 @@ public class Participant implements Serializable {
 		this.emailId = emailId;
 		this.applicantId = applicantId;
 		this.scheduledProgramId = scheduledProgramId;
+	}
+
+	public Participant() {
+		super();
 	}
 
 	public int getRollNo() {
