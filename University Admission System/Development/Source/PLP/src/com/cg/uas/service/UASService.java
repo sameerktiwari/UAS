@@ -14,6 +14,7 @@ public interface UASService {
 
 	/**
 	 * @param user
+	 *            - Contains user information to be validated
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -27,6 +28,8 @@ public interface UASService {
 
 	/**
 	 * @param pname
+	 *            - Contains the program name of which details has to be fetched
+	 *            from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -35,6 +38,8 @@ public interface UASService {
 
 	/**
 	 * @param appid
+	 *            - Contains the application id for which status has to be
+	 *            fetched from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -42,6 +47,7 @@ public interface UASService {
 
 	/**
 	 * @param app
+	 *            - Contains the applicant information which is to be submitted
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -49,6 +55,8 @@ public interface UASService {
 
 	/**
 	 * @param programId
+	 *            - Contains the program id for which applications has to be
+	 *            fetched from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -57,7 +65,11 @@ public interface UASService {
 
 	/**
 	 * @param application
+	 *            - Contains the applicant information of which status has to be
+	 *            updated
 	 * @param status
+	 *            - Contains the status to which applicant status is to be
+	 *            updated to
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -66,7 +78,11 @@ public interface UASService {
 
 	/**
 	 * @param application
+	 *            - Contains the applicant information of which date of
+	 *            interview has to be set
 	 * @param dateOfInterview
+	 *            - Contains date of interview to which applicant date of
+	 *            interview is to be updated to
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -75,6 +91,7 @@ public interface UASService {
 
 	/**
 	 * @param ppt
+	 *            - Contains participant information which is to be added
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -83,6 +100,8 @@ public interface UASService {
 
 	/**
 	 * @param programId
+	 *            - Contains scheduled program id of which details has to be
+	 *            fetched from the database
 	 * @return
 	 * @throws UniversityException
 	 */
@@ -91,6 +110,8 @@ public interface UASService {
 
 	/**
 	 * @param scheduledProgrammeId
+	 *            - Contains scheduled program id of a program which is to be
+	 *            deleted
 	 * @throws UniversityException
 	 */
 	public int deleteProgram(String scheduledProgrammeId)
@@ -98,6 +119,8 @@ public interface UASService {
 
 	/**
 	 * @param programsScheduled
+	 *            - Contains scheduled program id of a program which is to be
+	 *            modified
 	 * @return
 	 * @throws UniversityException
 	 */

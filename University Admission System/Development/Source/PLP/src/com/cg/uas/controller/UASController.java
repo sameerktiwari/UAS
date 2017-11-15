@@ -39,7 +39,9 @@ public class UASController {
 	 * Gets the role of the user
 	 * 
 	 * @param role
+	 *            - Stores the user's role
 	 * @param model
+	 *            - Contains user information
 	 * @return
 	 */
 	@RequestMapping("/login")
@@ -54,8 +56,11 @@ public class UASController {
 	 * Validates the username and password
 	 * 
 	 * @param model
+	 *            - Contains the error message if any
 	 * @param users
+	 *            - Contains user information passed through the form
 	 * @param result
+	 *            - Used to handle bean validation errors
 	 * @return
 	 */
 	@RequestMapping("/validate")
@@ -72,13 +77,12 @@ public class UASController {
 	}
 
 	/**
-	 * Show the Applicant Home Page
+	 * Show the applicant home page
 	 * 
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/applicant")
-	public String showApplicantHome(Model model) {
+	public String showApplicantHome() {
 		return APPLICANT_HOME;
 	}
 
@@ -86,6 +90,7 @@ public class UASController {
 	 * Views all the programs
 	 * 
 	 * @param model
+	 *            - Contains the programs scheduled list or error message
 	 * @return
 	 */
 	@RequestMapping("/viewprgrms")
@@ -110,8 +115,11 @@ public class UASController {
 	 * View Program details
 	 * 
 	 * @param pName
+	 *            - Contains the scheduled program name
 	 * @param pId
+	 *            - Contains the scheduled program id
 	 * @param model
+	 *            - Contains the program details and scheduled program id
 	 * @return
 	 */
 	@RequestMapping(value = "/programDetails", method = RequestMethod.GET)
@@ -133,7 +141,10 @@ public class UASController {
 	 * Applying for a program
 	 * 
 	 * @param pId
+	 *            - Contains the program id to which applicant is applying
 	 * @param model
+	 *            - Passing the applicant details, program id and domains
+	 *            available to another page
 	 * @return
 	 */
 	@RequestMapping("/apply")
@@ -149,8 +160,11 @@ public class UASController {
 	 * Adds an applicant for a program
 	 * 
 	 * @param app
+	 *            - Contains the applicant information entered by applicant
 	 * @param result
+	 *            - Used to handle bean validation errors
 	 * @param model
+	 *            - Passing the applicant details or error message to next page
 	 * @return
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -185,7 +199,10 @@ public class UASController {
 	 * Gets the status of the application
 	 * 
 	 * @param appId
+	 *            - Contains the application id of the applicant
 	 * @param model
+	 *            - Passing the applicant details or error message to the next
+	 *            page
 	 * @return
 	 */
 	@RequestMapping("/getStatus")
@@ -206,6 +223,8 @@ public class UASController {
 	 * Show programs for MAC
 	 * 
 	 * @param model
+	 *            - Passing the list of programs scheduled or error message to
+	 *            the next page
 	 * @return
 	 */
 	@RequestMapping("/viewapps")
@@ -228,8 +247,13 @@ public class UASController {
 	 * Shows applications for a Program Scheduled
 	 * 
 	 * @param model
+	 *            - Passing the list of applications or error message to the
+	 *            next page
 	 * @param ProgramsScheduled
+	 *            - Contains the program details of which applications have to
+	 *            be viewed
 	 * @param result
+	 *            - Used to handle bean validation errors
 	 * @return
 	 */
 	@RequestMapping("/viewApplications")
@@ -258,8 +282,11 @@ public class UASController {
 	 * Shows an application
 	 * 
 	 * @param model
+	 *            - Passing the applicant details to the next page
 	 * @param app
+	 *            - Contains the applicant details
 	 * @param result
+	 *            - Used to handle bean validation errors
 	 * @return
 	 */
 	@RequestMapping("/viewApplication")
@@ -273,8 +300,13 @@ public class UASController {
 	 * Updates the status of an applicant
 	 * 
 	 * @param appId
+	 *            - Contains the application id of which application status has
+	 *            to be updated
 	 * @param status
+	 *            - Contains the status to which status should be updated to
 	 * @param model
+	 *            - Passing the applicant details or error message to the next
+	 *            page
 	 * @return
 	 */
 	@RequestMapping("/updateStatus")
@@ -288,17 +320,13 @@ public class UASController {
 					model.addAttribute("applicant", app);
 					Application application = new Application();
 					model.addAttribute("Application", application);
-					return "viewApplication";
+					return VIEW_APPLICATION;
 				} else if (("Rejected").equals(status)) {
 					app = service.modify(app, status);
 					model.addAttribute("msg", "Application " + appId
 							+ " rejected");
 					model.addAttribute("applicant", app);
-					return "viewApplication";
-				} else {
-					model.addAttribute("msg", "Not Applicable");
-					model.addAttribute("applicant", app);
-					return "viewApplication";
+					return VIEW_APPLICATION;
 				}
 			} else if (("Accepted").equals(app.getStatus())) {
 				if (("Confirmed").equals(status)) {
@@ -312,11 +340,7 @@ public class UASController {
 						model.addAttribute("applicant", app);
 						model.addAttribute("msg", "Applicant Confirmed");
 						model.addAttribute("applicant", app);
-						return "viewApplication";
-					} else {
-						model.addAttribute("msg", "Pending Interview Results");
-						model.addAttribute("applicant", app);
-						return "viewApplication";
+						return VIEW_APPLICATION;
 					}
 				} else if (("Rejected").equals(status)) {
 					if (app.getDateOfInterview().before(
@@ -325,26 +349,20 @@ public class UASController {
 						model.addAttribute("msg", "Application " + appId
 								+ " rejected");
 						model.addAttribute("applicant", app);
-						return "viewApplication";
-					} else {
-						model.addAttribute("msg", "Pending Interview Results");
-						model.addAttribute("applicant", app);
-						return "viewApplication";
+						return VIEW_APPLICATION;
 					}
-				} else {
-					model.addAttribute("msg", "Not Applicable");
-					model.addAttribute("applicant", app);
-					return "viewApplication";
 				}
-			} else {
-				model.addAttribute("msg", "Not Applicable");
+				model.addAttribute("msg", "Pending Interview Results");
 				model.addAttribute("applicant", app);
-				return "viewApplication";
+				return VIEW_APPLICATION;
 			}
+			model.addAttribute("msg", "Not Applicable");
+			model.addAttribute("applicant", app);
+			return VIEW_APPLICATION;
 		} catch (UniversityException e) {
 			logger.error(e);
-			model.addAttribute("msg", e.getMessage());
-			return "error";
+			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+			return ERROR_PAGE;
 		}
 	}
 
@@ -352,8 +370,13 @@ public class UASController {
 	 * Sets the interview date of an applicant
 	 * 
 	 * @param model
+	 *            - Passing the applicant details or error message to the next
+	 *            page
 	 * @param app
+	 *            - Contains the applicant details of which interview date has
+	 *            to be set
 	 * @param result
+	 *            - Used to handle bean validation errors
 	 * @return
 	 */
 	@RequestMapping(value = "/setInterview", method = RequestMethod.POST)
@@ -370,7 +393,6 @@ public class UASController {
 			model.addAttribute("applicant", app);
 			model.addAttribute("msg", "Application " + app.getApplicationId()
 					+ " accepted and Interview Scheduled");
-			model.addAttribute("applicant", app);
 			return VIEW_APPLICATION;
 		} catch (UniversityException e) {
 			logger.error(e);
@@ -384,6 +406,8 @@ public class UASController {
 	 * Shows programs for Admin
 	 * 
 	 * @param model
+	 *            - Passing the list of programs scheduled or error message to
+	 *            the next page
 	 * @return
 	 */
 	@RequestMapping("/viewAdminPrgrms")
@@ -407,7 +431,10 @@ public class UASController {
 	 * Loads the update program schedule page
 	 * 
 	 * @param pId
+	 *            - Contains the scheduled program id on which updation is to be
+	 *            done
 	 * @param model
+	 *            - Passing the scheduled program details to the next page
 	 * @return
 	 */
 	@RequestMapping("/updatePrgrm")
@@ -430,7 +457,9 @@ public class UASController {
 	 * Updates the program schedule
 	 * 
 	 * @param programsScheduled
+	 *            - Contains the updated scheduled program details
 	 * @param model
+	 *            - Passing the message to the next page
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -456,7 +485,9 @@ public class UASController {
 	 * Delete a program schedule
 	 * 
 	 * @param pId
+	 *            - Contains the scheduled program id which is to be deleted
 	 * @param model
+	 *            - Passing the message to the next page
 	 * @return
 	 */
 	@RequestMapping("/deletePrgrm")
