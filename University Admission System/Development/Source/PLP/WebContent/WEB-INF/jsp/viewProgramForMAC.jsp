@@ -1,3 +1,14 @@
+<%--  
+ ***************************************************************************************
+ * Description  :   View all Scheduled programs which for a particular programs
+ * Functionality: It is a jsp page which will show the  list of available scheduled programs.
+ 					this functionality should be accessible to Member of admission committee only. 
+ * Models Used : UASController.java,ProgramsScheduled.java
+ * Restrictions: 
+ * Creation date: (09/11/2017)
+ * Modifications:
+ * Author: Group5       Date: 14-Nov-2017         Change Description:
+ ************************************************************************************** --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,11 +19,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View Program Scheduled</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<script src="js/bootstrap.min.js">
+	
+</script>
+<script src="js/jquery-3.2.1.min.js">
+	
+</script>
 </head>
 <body>
-<h1>University Admission System - Programmes Scheduled</h1>
-	<h2>Program Scheduled for the Winter Session</h2>
-	<table align="center">
+	<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.htm">University Admission
+				System</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="returnHome.htm">Home</a></li>
+			<li class="active"><a href="viewprgrms.htm">View Programmes</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="login.htm"><span
+					class="glyphicon glyphicon-log-in"></span>${sessionScope.users.loginId}(Logout)</a></li>
+		</ul>
+	</div>
+	</nav>
+	<table align="center" class="table table-condensed" style="width: 60%;">
+		<caption style="background-color: black; text-align: center;">
+			<font color="white"><b>Programmes Scheduled for the Winter
+					Session</b></font>
+		</caption>
 		<tr>
 			<th>Program Id</th>
 			<th>Program Name</th>
@@ -23,7 +60,7 @@
 			<th></th>
 		</tr>
 
-		<c:forEach items="${programList}" var="prog">
+		<c:forEach items="${programs}" var="prog">
 			<form:form action="viewApplications.htm" method="post"
 				modelAttribute="ProgramsScheduled">
 				<tr>
@@ -37,7 +74,8 @@
 					<td><form:hidden path="endDate" value="${prog.endDate}" />${prog.endDate}</td>
 					<td><form:hidden path="sessionsPerWeek"
 							value="${prog.sessionsPerWeek}" />${prog.sessionsPerWeek}</td>
-					<td><input type="submit" value="View Applications"></td>
+					<td><input class="btn btn-default" type="submit"
+						value="View Applications"></td>
 				</tr>
 			</form:form>
 		</c:forEach>
@@ -81,8 +119,5 @@
 			</c:forEach>
 		</table>
 	</c:if>
-	<div id="footer">
-		<a href="index.jsp">Home</a>
-	</div>
 </body>
 </html>

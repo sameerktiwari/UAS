@@ -1,13 +1,23 @@
 package com.cg.uas.dao;
 
+/************************************************************************************
+ * File:        UASDAO.java
+ * Package:     com.cg.uas.dao
+ * Description: Interface of data access object for University Admission System
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
 import java.sql.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import com.cg.uas.entities.Application;
 import com.cg.uas.entities.Participant;
 import com.cg.uas.entities.ProgramsOffered;
 import com.cg.uas.entities.ProgramsScheduled;
-import com.cg.uas.entities.Users;
+import com.cg.uas.entities.User;
 import com.cg.uas.exception.UniversityException;
 
 /**
@@ -22,7 +32,7 @@ public interface UASDAO {
 	 * @return
 	 * @throws UniversityException
 	 */
-	public boolean validate(Users user);
+	public boolean validate(User user);
 
 	/**
 	 * @return
@@ -130,6 +140,9 @@ public interface UASDAO {
 	 * @throws UniversityException
 	 */
 	public ProgramsScheduled modify(ProgramsScheduled programsScheduled)
+			throws UniversityException;
+
+	public void checkUser(HttpSession session, String role)
 			throws UniversityException;
 
 }

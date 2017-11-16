@@ -1,5 +1,13 @@
 package com.cg.uas.exception;
-
+/************************************************************************************
+ * File:        UniversityException.java
+ * Package:     com.cg.uas.exception
+ * Description: User defined exception to handle all other exceptions occurring in the
+ * 				 application
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
 public class UniversityException extends Exception {
 
 	/**
