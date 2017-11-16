@@ -39,7 +39,7 @@ public class UASTest {
 	@Transactional
 	@Rollback(true)
 	public void testValidate() {
-		User user = new User("sam", "sam", "mac");
+		User user = new User("akash", "akash", "mac");
 		assertEquals(false, dao.validate(user));
 	}
 
