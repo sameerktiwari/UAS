@@ -1,1 +1,8 @@
+<<<<<<< HEAD
+=======
+/.sonar/
+>>>>>>> 783a680dc1e008f7b2562166ab57d1ec90add792
 /com/
+/jpaContext.xml
+/log4j.properties
+/sonar-project.properties
