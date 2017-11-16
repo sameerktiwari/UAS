@@ -1,2 +1,0 @@
-create table Users
-(login_id varchar2(5),password varchar2(10),role varchar2(5)); 
