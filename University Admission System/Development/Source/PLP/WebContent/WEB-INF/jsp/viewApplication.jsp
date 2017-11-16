@@ -39,7 +39,7 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="returnHome.htm">Home</a></li>
-			<li class="active"><a href="viewprgrms.htm">View Programmes</a></li>
+			<li class="active"><a href="viewapps.htm">View Programmes</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="login.htm"><span

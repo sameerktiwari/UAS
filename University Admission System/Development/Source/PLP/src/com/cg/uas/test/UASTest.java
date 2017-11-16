@@ -49,7 +49,7 @@ public class UASTest {
 	public void testSave() throws UniversityException {
 		Application application = new Application("Sameer Tiwari",
 				Date.valueOf("1995-04-02"), "BTech", 88,
-				"Successful IT engineer", "sameerkt@gmail.com", "1001",
+				"IT engineer", "sameerkt@gmail.com", "1001",
 				"Pending");
 		Application returnapplication = dao.save(application);
 		assertEquals(returnapplication.getFullName(), application.getFullName());
@@ -77,7 +77,7 @@ public class UASTest {
 	public void testGetStatus() throws UniversityException {
 		Application application = new Application("Sameer Tiwari",
 				Date.valueOf("1995-04-02"), "BTech", 88,
-				"Successful IT engineer", "sameerkt@gmail.com", "1001",
+				"IT engineer", "sameerkt@gmail.com", "1001",
 				"Pending");
 		application = dao.save(application);
 		Application returnApplication = dao.getStatus(application
@@ -91,7 +91,7 @@ public class UASTest {
 	public void testModifyApplicationStatus() throws UniversityException {
 		Application application = new Application("Sameer Tiwari",
 				Date.valueOf("1995-04-02"), "BTech", 88,
-				"Successful IT engineer", "sameerkt@gmail.com", "1001",
+				"IT engineer", "sameerkt@gmail.com", "1001",
 				"Pending");
 		application = dao.save(application);
 		Application returnApplication = dao.modify(application, "Accepted");
@@ -112,7 +112,7 @@ public class UASTest {
 	public void testSetInterview() throws UniversityException {
 		Application application = new Application("Sameer Tiwari",
 				Date.valueOf("1995-04-02"), "BTech", 88,
-				"Successful IT engineer", "sameerkt@gmail.com", "1001",
+				"IT engineer", "sameerkt@gmail.com", "1001",
 				"Pending");
 		application = dao.save(application);
 		Application returnApplication = dao.setInterview(application,
@@ -124,20 +124,10 @@ public class UASTest {
 	@Test
 	@Transactional
 	@Rollback(true)
-	public void testAddParticipant() throws UniversityException {
-		Participant participant = new Participant("sameer@capgemini.com", 10,
-				1002);
-		Participant returnParticipant = dao.addParticipant(participant);
-		assertEquals("sameer@capgemini.com", returnParticipant.getEmailId());
-	}
-
-	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGetApplicant() throws UniversityException {
 		Application application = new Application("Sameer Tiwari",
 				Date.valueOf("1995-04-02"), "BTech", 88,
-				"Successful IT engineer", "sameerkt@gmail.com", "1001",
+				"IT engineer", "sameerkt@gmail.com", "1001",
 				"Pending");
 		application = dao.save(application);
 		List<Application> applications = dao.getApplicant("1001");
