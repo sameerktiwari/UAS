@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 # University Admission System
 This project is aimed at developing a University Admission System Application for admissions. This is a web based application that can be accessed over the web. This system can be used for applying to programs scheduled and enroll a student for a program scheduled. This is an integrated system that contains three user components-
 1.  Adminstrator
 2.  Member of Admission Committee (MAC) 
 3.  Applicant 
-#FUNCTIONAL COMPONENTS OF THE PROJECT
+FUNCTIONAL COMPONENTS OF THE PROJECT
 Following is a list of functionalities of the system. 
 There are three categories of people who would access the system viz. applicants, members of admission committee (mac) and administrators. Each one of them would have some exclusive privileges (for e.g. Applicants can apply for a program by filling up the form without any login process, members of admission committee alone will be able to view applicant details and filter the applicants for a specific program they have applied for and only the administrator has the right to keep track of the university’s program details.)
 
@@ -31,6 +30,3 @@ There are three categories of people who would access the system viz. applicants
 	View list of programs scheduled to commence in a give time period
 
 Transition of Status: Applied ->Accepted/Rejected->Confirmed/Rejected
-=======
-# UASBootstrap
->>>>>>> 696974f06ad49c478f94cd23bf34a272b4f9c527
