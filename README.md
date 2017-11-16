@@ -3,6 +3,7 @@ This project is aimed at developing a University Admission System Application fo
 1.  Adminstrator
 2.  Member of Admission Committee (MAC) 
 3.  Applicant 
+
 FUNCTIONAL COMPONENTS OF THE PROJECT
 Following is a list of functionalities of the system. 
 There are three categories of people who would access the system viz. applicants, members of admission committee (mac) and administrators. Each one of them would have some exclusive privileges (for e.g. Applicants can apply for a program by filling up the form without any login process, members of admission committee alone will be able to view applicant details and filter the applicants for a specific program they have applied for and only the administrator has the right to keep track of the university’s program details.)
