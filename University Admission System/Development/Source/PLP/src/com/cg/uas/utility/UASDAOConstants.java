@@ -1,5 +1,12 @@
 package com.cg.uas.utility;
-
+/************************************************************************************
+ * File:        UASDAOConstants.java
+ * Package:     com.cg.uas.utility
+ * Description: Provides constants to the DAO layer
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
 public interface UASDAOConstants {
 	static String LOGGED_IN = "Logged in successfully";
 	static String RETREIEVE_PROGRAMS_SCHEDULED = "Retrieved Programs Scheduled";
@@ -16,7 +23,7 @@ public interface UASDAOConstants {
 	static String INTERVIEW_DATE_NOT_SCHEDULED = "Problem in Updating Date of Interview";
 	static String PARTICIPANT_ADDED = "Participant Added";
 	static String PARTICIPANT_NOT_ADDED = "Problem in adding participant";
-	static String INVALID_PROGRAMID = "Invalid ProgramId";
+	static String INVALID_PROGRAMID = "Please enter valid Scheduled ProgramId";
 	static String PROGRAM_DELETED = "Program Deleted";
 	static String PROGRAM_NOT_DELETED = "Program does not exist";
 	static String PROGRAM_UPDATED = "Program updated";

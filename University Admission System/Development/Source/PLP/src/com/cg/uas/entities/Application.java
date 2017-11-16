@@ -1,5 +1,17 @@
 package com.cg.uas.entities;
 
+/************************************************************************************
+ * File:        Application.java
+ * Package:     com.cg.uas.entities
+ * Description: Interface of data access object for University Admission System.
+ * 				 Application by a participant for a scheduled program
+ *         		 available by the university/ Every attribute needed for the
+ *               application will be present here and depending on the progress of the
+ *               Application they will get updated.
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -15,13 +27,6 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 
-/**
- * @author GroupNo. 5 Application by a participant for a scheduled program
- *         available by the university/ Every attribute needed for the
- *         application will be present here and depending on the progress of the
- *         Application they will get updated.
- *
- */
 @Entity
 @Table(name = "application")
 public class Application implements Serializable {

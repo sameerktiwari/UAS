@@ -1,5 +1,5 @@
 projectKey=UAS_Group5
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/UAS_Group5
-ceTaskId=AV-6PQ4MUXlToRjSJtH9
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AV-6PQ4MUXlToRjSJtH9
+ceTaskId=AV-_SB6sHKKtxmD1ZcPZ
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AV-_SB6sHKKtxmD1ZcPZ

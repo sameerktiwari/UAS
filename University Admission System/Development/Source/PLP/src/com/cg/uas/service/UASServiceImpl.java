@@ -1,7 +1,18 @@
 package com.cg.uas.service;
 
+/************************************************************************************
+ * File:        UASServiceImpl.java
+ * Package:     com.cg.uas.service
+ * Description: Implements the link between presentation layer and dao layer for
+ * 				 University Admission System
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
 import java.sql.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +22,7 @@ import com.cg.uas.entities.Application;
 import com.cg.uas.entities.Participant;
 import com.cg.uas.entities.ProgramsOffered;
 import com.cg.uas.entities.ProgramsScheduled;
-import com.cg.uas.entities.Users;
+import com.cg.uas.entities.User;
 import com.cg.uas.exception.UniversityException;
 
 @Service
@@ -25,7 +36,7 @@ public class UASServiceImpl implements UASService {
 	 * @see com.cg.uas.service.IService#validate(com.cg.uas.entities.Users)
 	 */
 	@Override
-	public boolean validate(Users user) {
+	public boolean validate(User user) {
 		return dao.validate(user);
 	}
 
@@ -155,5 +166,11 @@ public class UASServiceImpl implements UASService {
 			throws UniversityException {
 		return dao.modify(programsScheduled);
 
+	}
+
+	@Override
+	public void checkUser(HttpSession session, String role)
+			throws UniversityException {
+		dao.checkUser(session, role);
 	}
 }
