@@ -1,25 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js">
+</script>
+    <script src="js/jquery-3.2.1.min.js">
+</script>
 </head>
 <body>
-<h1>Welcome to University Admission System</h1>
-<marquee><h2>Admissions Open. <a href="viewprgrms.htm">Apply now!</a></h2></marquee>
-<h2>Login as</h2>
 
-<div id="nav">
-			<ul>
-				<li><a href="applicant.htm">Applicant</a></li>
-				<li><a href="login.htm?role=mac">MAC</a></li>
-				<li><a href="login.htm?role=admin">Admin</a></li>
-			</ul>	
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="index.jsp">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="login.htm"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+  <h3>Right Aligned Navbar</h3>
+  <p>The .navbar-right class is used to right-align navigation bar buttons.</p>
 </div>
-<div id="footer"><p></p></div>
-
-</body>
-</html>

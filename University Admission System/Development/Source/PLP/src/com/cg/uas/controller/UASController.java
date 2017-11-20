@@ -45,10 +45,9 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/login")
-	public String getRole(@RequestParam("role") String role, Model model) {
+	public String getRole(Model model) {
 		Users users = new Users();
 		model.addAttribute("users", users);
-		users.setRole(role);
 		return LOGIN_PAGE;
 	}
 

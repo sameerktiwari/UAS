@@ -23,10 +23,13 @@
 				<td><form:password path="password" /> <form:errors path="password" /></td>
 			</tr>
 			<tr>
+				<td>Role:</td>
+				<td><form:select path="role"><option value="">--Select--</option><option value="admin">ADMIN</option></form:select></td>
+			</tr>
+			<tr>
 				<td colspan="2"><input type="submit" value="Login"></td>
 			</tr>
-</table>
-<form:hidden path="role" value="${users.role}"/>		
+</table>	
 </form:form>
 <div id="footer"><a href="index.jsp">Home</a></div>
 </body>
