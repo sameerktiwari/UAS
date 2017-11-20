@@ -1,11 +1,39 @@
 package com.cg.uas.controller;
 
-import static com.cg.uas.utility.UASConstants.*;
+/************************************************************************************
+ * File:        UASController.java
+ * Package:     com.cg.uas.controller
+ * Description: Controller class for University Admission System that handles all 
+ * 				client requests and responses after performing necessary operations
+ * Version:     1.0
+ * Modifications:
+ * Author: Group5      Date: 14th-Nov-2017      Change Description:
+ ************************************************************************************/
+import static com.cg.uas.utility.UASConstants.ADMIN_HOME;
+import static com.cg.uas.utility.UASConstants.ADMIN_ROLE;
+import static com.cg.uas.utility.UASConstants.APPLICANT_HOME;
+import static com.cg.uas.utility.UASConstants.APPLICATION;
+import static com.cg.uas.utility.UASConstants.ERROR_MESSAGE_NAME;
+import static com.cg.uas.utility.UASConstants.ERROR_PAGE;
+import static com.cg.uas.utility.UASConstants.HOME_PAGE;
+import static com.cg.uas.utility.UASConstants.LOGIN_ERROR_MESSAGE;
+import static com.cg.uas.utility.UASConstants.LOGIN_PAGE;
+import static com.cg.uas.utility.UASConstants.MAC_ROLE;
+import static com.cg.uas.utility.UASConstants.SUCCESS_PAGE;
+import static com.cg.uas.utility.UASConstants.UPDATE_PROGRAM;
+import static com.cg.uas.utility.UASConstants.VIEW_ALL_PROGRAMS;
+import static com.cg.uas.utility.UASConstants.VIEW_APPLICATION;
+import static com.cg.uas.utility.UASConstants.VIEW_APPLICATIONS_FOR_A_PROGRAM;
+import static com.cg.uas.utility.UASConstants.VIEW_PROGRAMS_FOR_ADMIN;
+import static com.cg.uas.utility.UASConstants.VIEW_PROGRAMS_FOR_MAC;
+import static com.cg.uas.utility.UASConstants.VIEW_PROGRAM_DETAILS;
+import static com.cg.uas.utility.UASConstants.VIEW_STATUS;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -17,15 +45,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cg.uas.entities.Application;
 import com.cg.uas.entities.Participant;
 import com.cg.uas.entities.ProgramsOffered;
 import com.cg.uas.entities.ProgramsScheduled;
-import com.cg.uas.entities.Users;
+import com.cg.uas.entities.User;
 import com.cg.uas.exception.UniversityException;
 import com.cg.uas.service.UASService;
 
+@SessionAttributes("users")
 @Controller
 public class UASController {
 
@@ -45,8 +75,14 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/login")
+<<<<<<< HEAD
 	public String getRole(Model model) {
 		Users users = new Users();
+=======
+	public String getRole(Model model, HttpSession session) {
+		session.invalidate();
+		User users = new User();
+>>>>>>> 95dc68cf41de9496cf05de24313fa72ea8d8570c
 		model.addAttribute("users", users);
 		return LOGIN_PAGE;
 	}
@@ -63,12 +99,13 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/validate")
-	public String validate(Model model, @ModelAttribute("users") Users users,
-			BindingResult result) {
+	public String validate(Model model, @ModelAttribute("users") User users,
+			HttpSession session, BindingResult result) {
 		if (result.hasErrors()) {
 			return LOGIN_PAGE;
 		}
 		if (!service.validate(users)) {
+			session.setAttribute("users", users);
 			return users.getRole();
 		}
 		model.addAttribute(ERROR_MESSAGE_NAME, LOGIN_ERROR_MESSAGE);
@@ -98,13 +135,13 @@ public class UASController {
 		try {
 			List<ProgramsScheduled> programsScheduled = service
 					.viewProgrammes();
-			model.addAttribute("programList", programsScheduled);
+			model.addAttribute("programs", programsScheduled);
 			ProgramsScheduled programs = new ProgramsScheduled();
 			model.addAttribute("ProgramsScheduled", programs);
 			return VIEW_ALL_PROGRAMS;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -129,9 +166,9 @@ public class UASController {
 			model.addAttribute("prog", pos);
 			model.addAttribute("pId", pId);
 			return VIEW_PROGRAM_DETAILS;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -149,8 +186,8 @@ public class UASController {
 	@RequestMapping("/apply")
 	public String apply(@RequestParam("pId") String pId, Model model) {
 		Application app = new Application();
-		model.addAttribute("pId", pId);
-		model.addAttribute("domainlist", DOMAINS);
+		if (!pId.isEmpty())
+			model.addAttribute("pId", pId);
 		model.addAttribute("Application", app);
 		return APPLICATION;
 	}
@@ -174,12 +211,19 @@ public class UASController {
 			return APPLICATION;
 		}
 		try {
+			service.getProgram(app.getScheduledProgramId());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
+			return APPLICATION;
+		}
+		try {
 			Application ap = service.save(app);
 			model.addAttribute("applicant", ap);
 			return SUCCESS_PAGE;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -211,9 +255,9 @@ public class UASController {
 			model.addAttribute("applicant", app);
 			return VIEW_STATUS;
 
-		} catch (UniversityException | NumberFormatException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException | NumberFormatException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -227,17 +271,19 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/viewapps")
-	public String showPrograms(Model model) {
+	public String showPrograms(Model model, HttpSession session) {
+
 		try {
+			service.checkUser(session, MAC_ROLE);
 			List<ProgramsScheduled> programsScheduled = service
 					.viewProgrammes();
-			model.addAttribute("programList", programsScheduled);
+			model.addAttribute("programs", programsScheduled);
 			ProgramsScheduled programs = new ProgramsScheduled();
 			model.addAttribute("ProgramsScheduled", programs);
 			return VIEW_PROGRAMS_FOR_MAC;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -259,20 +305,21 @@ public class UASController {
 	public String showApplications(
 			Model model,
 			@ModelAttribute("ProgramsScheduled") ProgramsScheduled ProgramsScheduled,
-			BindingResult result) {
+			HttpSession session, BindingResult result) {
 
 		try {
+			service.checkUser(session, MAC_ROLE);
 			List<Application> applications = service
 					.getApplicant(ProgramsScheduled.getScheduledProgrammeId());
-			model.addAttribute("appList", applications);
+			model.addAttribute("apps", applications);
 			if (applications.isEmpty())
 				throw new UniversityException("No applications submitted");
 			Application app = new Application();
 			model.addAttribute("Application", app);
 			return VIEW_APPLICATIONS_FOR_A_PROGRAM;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -290,9 +337,17 @@ public class UASController {
 	 */
 	@RequestMapping("/viewApplication")
 	public String showApplication(Model model,
-			@ModelAttribute("Application") Application app, BindingResult result) {
-		model.addAttribute("applicant", app);
-		return VIEW_APPLICATION;
+			@ModelAttribute("Application") Application app,
+			BindingResult result, HttpSession session) {
+		try {
+			service.checkUser(session, MAC_ROLE);
+			model.addAttribute("applicant", app);
+			return VIEW_APPLICATION;
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
+			return ERROR_PAGE;
+		}
 	}
 
 	/**
@@ -310,8 +365,10 @@ public class UASController {
 	 */
 	@RequestMapping("/updateStatus")
 	public String updateStatus(@RequestParam("appId") int appId,
-			@RequestParam("status") String status, Model model) {
+			@RequestParam("status") String status, HttpSession session,
+			Model model) {
 		try {
+			service.checkUser(session, MAC_ROLE);
 			Application app = service.getStatus(appId);
 			if (("Pending").equals(app.getStatus())) {
 				if (("Accepted").equals(status)) {
@@ -322,8 +379,8 @@ public class UASController {
 					return VIEW_APPLICATION;
 				} else if (("Rejected").equals(status)) {
 					app = service.modify(app, status);
-					model.addAttribute("msg", "Application " + appId
-							+ " rejected");
+					model.addAttribute(ERROR_MESSAGE_NAME, "Application "
+							+ appId + " rejected");
 					model.addAttribute("applicant", app);
 					return VIEW_APPLICATION;
 				}
@@ -337,7 +394,8 @@ public class UASController {
 						service.addParticipant(ppt);
 						app = service.modify(app, status);
 						model.addAttribute("applicant", app);
-						model.addAttribute("msg", "Applicant Confirmed");
+						model.addAttribute(ERROR_MESSAGE_NAME,
+								"Applicant Confirmed");
 						model.addAttribute("applicant", app);
 						return VIEW_APPLICATION;
 					}
@@ -345,22 +403,23 @@ public class UASController {
 					if (app.getDateOfInterview().before(
 							Date.valueOf(LocalDate.now()))) {
 						app = service.modify(app, status);
-						model.addAttribute("msg", "Application " + appId
-								+ " rejected");
+						model.addAttribute(ERROR_MESSAGE_NAME, "Application "
+								+ appId + " rejected");
 						model.addAttribute("applicant", app);
 						return VIEW_APPLICATION;
 					}
 				}
-				model.addAttribute("msg", "Pending Interview Results");
+				model.addAttribute(ERROR_MESSAGE_NAME,
+						"Pending Interview Results");
 				model.addAttribute("applicant", app);
 				return VIEW_APPLICATION;
 			}
-			model.addAttribute("msg", "Not Applicable");
+			model.addAttribute(ERROR_MESSAGE_NAME, "Not Applicable");
 			model.addAttribute("applicant", app);
 			return VIEW_APPLICATION;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 		}
 	}
@@ -381,21 +440,22 @@ public class UASController {
 	@RequestMapping(value = "/setInterview", method = RequestMethod.POST)
 	public String setInterview(Model model,
 			@ModelAttribute("Application") @Valid Application app,
-			BindingResult result) {
+			BindingResult result, HttpSession session) {
 		try {
 			if (result.hasErrors()) {
 				model.addAttribute("applicant", app);
 				model.addAttribute("showDOI", "y");
 				return VIEW_APPLICATION;
 			}
+			service.checkUser(session, MAC_ROLE);
 			app = service.modify(app, "Accepted");
 			model.addAttribute("applicant", app);
 			model.addAttribute("msg", "Application " + app.getApplicationId()
 					+ " accepted and Interview Scheduled");
 			return VIEW_APPLICATION;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -410,17 +470,18 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/viewAdminPrgrms")
-	public String showAdminPrograms(Model model) {
+	public String showAdminPrograms(Model model, HttpSession session) {
 		try {
+			service.checkUser(session, ADMIN_ROLE);
 			List<ProgramsScheduled> programsScheduled = service
 					.viewProgrammes();
-			model.addAttribute("programList", programsScheduled);
+			model.addAttribute("programs", programsScheduled);
 			ProgramsScheduled programs = new ProgramsScheduled();
 			model.addAttribute("ProgramsScheduled", programs);
 			return VIEW_PROGRAMS_FOR_ADMIN;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -437,16 +498,18 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/updatePrgrm")
-	public String loadUpdateProgram(@RequestParam("pId") String pId, Model model) {
+	public String loadUpdateProgram(@RequestParam("pId") String pId,
+			HttpSession session, Model model) {
 		try {
+			service.checkUser(session, ADMIN_ROLE);
 			ProgramsScheduled programsScheduled = service.getProgram(pId);
 			model.addAttribute("prog", programsScheduled);
 			ProgramsScheduled program = new ProgramsScheduled();
 			model.addAttribute("programsScheduled", program);
 			return UPDATE_PROGRAM;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -463,17 +526,18 @@ public class UASController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(
-			@ModelAttribute("programsScheduled") @Valid ProgramsScheduled programsScheduled,
-			Model model) {
+			@ModelAttribute("programsScheduled") ProgramsScheduled programsScheduled,
+			HttpSession session, Model model) {
 		try {
+			service.checkUser(session, ADMIN_ROLE);
 			ProgramsScheduled programs = service.modify(programsScheduled);
 			model.addAttribute("message",
 					"Program with Id " + programs.getScheduledProgrammeId()
 							+ " successfully modified");
 			return ADMIN_HOME;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 
 		}
@@ -490,20 +554,44 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/deletePrgrm")
-	public String deleteProgram(@RequestParam("pId") String pId, Model model) {
+	public String deleteProgram(@RequestParam("pId") String pId,
+			HttpSession session, Model model) {
 		try {
-			int status = service.deleteProgram(pId);
-			if (status == 1) {
+			service.checkUser(session, ADMIN_ROLE);
+			int deleted = service.deleteProgram(pId);
+			if (1 == deleted) {
 				model.addAttribute("message", "Program with Id " + pId
 						+ " successfully deleted");
 			}
 			return ADMIN_HOME;
-		} catch (UniversityException e) {
-			logger.error(e);
-			model.addAttribute(ERROR_MESSAGE_NAME, e.getMessage());
+		} catch (UniversityException exception) {
+			logger.error(exception);
+			model.addAttribute(ERROR_MESSAGE_NAME, exception.getMessage());
 			return ERROR_PAGE;
 
 		}
+	}
+
+	/**
+	 * @param session
+	 *            Contains the current session
+	 * @return
+	 */
+	@RequestMapping("/index")
+	public String home(HttpSession session) {
+		session.invalidate();
+		return HOME_PAGE;
+	}
+
+	/**
+	 * @param session
+	 *            Contains the current session
+	 * @return
+	 */
+	@RequestMapping("/returnHome")
+	public String returnHome(HttpSession session) {
+		String role = ((User) session.getAttribute("users")).getRole();
+		return role;
 	}
 
 }
