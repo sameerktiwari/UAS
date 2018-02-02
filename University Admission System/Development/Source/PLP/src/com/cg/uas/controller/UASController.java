@@ -75,14 +75,11 @@ public class UASController {
 	 * @return
 	 */
 	@RequestMapping("/login")
-<<<<<<< HEAD
 	public String getRole(Model model) {
 		Users users = new Users();
-=======
 	public String getRole(Model model, HttpSession session) {
 		session.invalidate();
 		User users = new User();
->>>>>>> 95dc68cf41de9496cf05de24313fa72ea8d8570c
 		model.addAttribute("users", users);
 		return LOGIN_PAGE;
 	}
