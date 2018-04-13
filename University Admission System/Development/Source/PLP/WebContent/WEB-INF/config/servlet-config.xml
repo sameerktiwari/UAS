@@ -11,10 +11,10 @@
 <bean id="myBeansValidator"
     class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
   
-  <mvc:annotation-driven validator="myBeansValidator"></mvc:annotation-driven>
-	<context:component-scan base-package="com.cg.uas.controller" />
+<mvc:annotation-driven validator="myBeansValidator"></mvc:annotation-driven>
+<context:component-scan base-package="com.cg.uas.controller" />
 
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
 
 </beans>
